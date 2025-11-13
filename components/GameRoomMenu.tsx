@@ -354,10 +354,10 @@ export default function GameRoomMenu({ onBack, onStartGame }: GameRoomMenuProps)
 
     return (
       <div className="players-grid">
-        {/* Jugadores actuales */}
+        {/* Current players */}
         {players.map((player) => {
           const isPlayerLeader = player.id === room.leaderId
-          // Mostrar email si no hay nickname, o un texto por defecto
+          // Show email if no nickname, or default text
           const displayName = player.nickname?.trim() || player.userEmail || 'Jugador'
 
           return (
@@ -392,10 +392,10 @@ export default function GameRoomMenu({ onBack, onStartGame }: GameRoomMenuProps)
                 </div>
               </div>
 
-              {/* Acciones del líder */}
+              {/* Leader actions */}
               {isLeader && player.id !== room.leaderId && (
                 <div className="player-actions">
-                  {/* Botón expulsar */}
+                  {/* Kick button */}
                   <Button
                     size="sm"
                     variant="ghost"
@@ -406,7 +406,7 @@ export default function GameRoomMenu({ onBack, onStartGame }: GameRoomMenuProps)
                     ✕
                   </Button>
 
-                  {/* Botón transferir liderazgo (solo para jugadores humanos) */}
+                  {/* Transfer leadership button (only for human players) */}
                   {!player.isBot && (
                     <Button
                       size="sm"
@@ -424,7 +424,7 @@ export default function GameRoomMenu({ onBack, onStartGame }: GameRoomMenuProps)
           )
         })}
 
-        {/* Slots vacíos */}
+        {/* Empty slots */}
         {Array.from({ length: emptySlots }, (_, idx) => (
           <div key={`empty-${idx}`} className="player-container empty-container">
             <div className="player-avatar">
@@ -719,7 +719,7 @@ export default function GameRoomMenu({ onBack, onStartGame }: GameRoomMenuProps)
           letter-spacing: 0.05em;
         }
 
-        /* Modo Configuración */
+        /* Configuration Mode */
         .config-mode {
           display: flex;
           flex-direction: column;
@@ -842,7 +842,7 @@ export default function GameRoomMenu({ onBack, onStartGame }: GameRoomMenuProps)
           padding: 1.5rem;
         }
 
-        /* Modo Lobby */
+        /* Lobby Mode */
         .lobby-mode {
           width: 100%;
         }
@@ -873,14 +873,14 @@ export default function GameRoomMenu({ onBack, onStartGame }: GameRoomMenuProps)
           text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
         }
 
-        /* DISEÑO PLAYERS GRID DESDE CERO */
+        /* PLAYERS GRID DESIGN FROM SCRATCH */
         .players-grid {
           display: flex;
           flex-direction: column;
           gap: 0.75rem;
         }
 
-        /* DISEÑO PLAYER CONTAINER DESDE CERO */
+        /* PLAYER CONTAINER DESIGN FROM SCRATCH */
         .player-container {
           display: flex;
           align-items: center;
@@ -906,7 +906,7 @@ export default function GameRoomMenu({ onBack, onStartGame }: GameRoomMenuProps)
             inset 0 1px 0 rgba(255, 255, 255, 0.15);
         }
 
-        /* CONTENEDOR LÍDER */
+        /* LEADER CONTAINER */
         .player-container.leader-container {
           background: rgba(255, 255, 255, 0.07);
           border: 2px solid rgba(255, 215, 0, 0.6);
@@ -937,7 +937,7 @@ export default function GameRoomMenu({ onBack, onStartGame }: GameRoomMenuProps)
           transform: translateX(6px);
         }
 
-        /* CONTENEDOR BOT */
+        /* BOT CONTAINER */
         .player-container.bot-container {
           background: rgba(255, 255, 255, 0.06);
           border: 1.5px solid rgba(139, 92, 246, 0.5);
@@ -953,7 +953,7 @@ export default function GameRoomMenu({ onBack, onStartGame }: GameRoomMenuProps)
             0 4px 10px rgba(0, 0, 0, 0.3);
         }
 
-        /* CONTENEDOR VACÍO */
+        /* EMPTY CONTAINER */
         .player-container.empty-container {
           background: rgba(255, 255, 255, 0.02);
           border: 1px dashed rgba(255, 255, 255, 0.2);
@@ -967,7 +967,7 @@ export default function GameRoomMenu({ onBack, onStartGame }: GameRoomMenuProps)
           border-color: rgba(255, 255, 255, 0.2);
         }
 
-        /* AVATARES REDISEÑADOS DESDE CERO */
+        /* AVATARS REDESIGNED FROM SCRATCH */
         .player-avatar {
           flex-shrink: 0;
         }
@@ -1041,7 +1041,7 @@ export default function GameRoomMenu({ onBack, onStartGame }: GameRoomMenuProps)
           color: rgba(255, 255, 255, 0.3);
         }
 
-        /* INFO DE JUGADOR REDISEÑADA */
+        /* PLAYER INFO REDESIGNED */
         .player-info {
           display: flex;
           flex-direction: column;
@@ -1089,7 +1089,7 @@ export default function GameRoomMenu({ onBack, onStartGame }: GameRoomMenuProps)
           align-items: center;
         }
 
-        /* BADGES REDISEÑADOS DESDE CERO */
+        /* STATUS BADGES REDESIGNED FROM SCRATCH */
         .status-badge {
           font-size: 0.65rem;
           font-weight: 700;
@@ -1124,7 +1124,7 @@ export default function GameRoomMenu({ onBack, onStartGame }: GameRoomMenuProps)
           border: 1px solid rgba(255, 255, 255, 0.15);
         }
 
-        /* BOTONES DE ACCIÓN REDISEÑADOS DESDE CERO */
+        /* ACTION BUTTONS REDESIGNED FROM SCRATCH */
         .player-actions {
           display: flex;
           gap: 0.5rem;
@@ -1147,7 +1147,7 @@ export default function GameRoomMenu({ onBack, onStartGame }: GameRoomMenuProps)
           overflow: hidden;
         }
 
-        /* BOTÓN EXPULSAR - ROJO */
+        /* KICK BUTTON - RED */
         .kick-btn {
           color: white;
           background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
@@ -1184,7 +1184,7 @@ export default function GameRoomMenu({ onBack, onStartGame }: GameRoomMenuProps)
           transform: translateY(0) scale(0.98);
         }
 
-        /* BOTÓN TRANSFERIR LIDERAZGO - AMARILLO */
+        /* TRANSFER LEADERSHIP BUTTON - YELLOW */
         .transfer-btn {
           color: #000000;
           background: linear-gradient(135deg, #FCD34D 0%, #F59E0B 100%);
@@ -1221,7 +1221,7 @@ export default function GameRoomMenu({ onBack, onStartGame }: GameRoomMenuProps)
           transform: translateY(0) scale(0.98);
         }
 
-        /* Asegurar que el contenido esté sobre el ::before */
+        /* Ensure content is above ::before */
         .action-btn > * {
           position: relative;
           z-index: 1;
@@ -1303,7 +1303,7 @@ export default function GameRoomMenu({ onBack, onStartGame }: GameRoomMenuProps)
           }
         }
 
-        /* Efectos de brillo */
+        /* Glow effects */
         .shine,
         .glow {
           pointer-events: none;
