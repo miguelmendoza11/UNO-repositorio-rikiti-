@@ -361,7 +361,7 @@ export default function GameRoomMenu({ onBack, onStartGame }: GameRoomMenuProps)
           const displayName = player.nickname?.trim() || player.userEmail || 'Jugador'
 
           return (
-            <div key={player.id} className={`player-card ${isPlayerLeader ? 'leader-card' : ''} ${player.isBot ? 'bot-card' : ''}`}>
+            <div key={player.id} className={`player-container ${isPlayerLeader ? 'leader-container' : ''} ${player.isBot ? 'bot-container' : ''}`}>
               <div className="player-avatar">
                 {player.isBot ? (
                   <div className="avatar-bot">
@@ -426,7 +426,7 @@ export default function GameRoomMenu({ onBack, onStartGame }: GameRoomMenuProps)
 
         {/* Slots vacíos */}
         {Array.from({ length: emptySlots }, (_, idx) => (
-          <div key={`empty-${idx}`} className="player-card empty">
+          <div key={`empty-${idx}`} className="player-container empty-container">
             <div className="player-avatar">
               <div className="avatar-empty">
                 <Users size={24} />
@@ -873,109 +873,101 @@ export default function GameRoomMenu({ onBack, onStartGame }: GameRoomMenuProps)
           text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
         }
 
+        /* DISEÑO PLAYERS GRID DESDE CERO */
         .players-grid {
           display: flex;
           flex-direction: column;
-          gap: 1rem;
-          padding: 0.5rem;
-          background: rgba(0, 0, 0, 0.2);
-          border-radius: 12px;
-          border: 1px solid rgba(255, 255, 255, 0.05);
+          gap: 0.75rem;
         }
 
-        .player-card {
+        /* DISEÑO PLAYER CONTAINER DESDE CERO */
+        .player-container {
           display: flex;
           align-items: center;
           gap: 1rem;
-          padding: 1.25rem;
+          padding: 1rem 1.25rem;
           background: rgba(255, 255, 255, 0.05);
-          border-radius: 14px;
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          transition: all 0.3s ease;
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
           position: relative;
-          overflow: hidden;
-          backdrop-filter: blur(12px);
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-        }
-
-        .player-card::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: -100%;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-          transition: left 0.5s ease;
-        }
-
-        .player-card:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-          border-color: rgba(255, 255, 255, 0.2);
-          background: rgba(255, 255, 255, 0.08);
-        }
-
-        .player-card:hover::before {
-          left: 100%;
-        }
-
-        .player-card.leader-card {
-          background: rgba(255, 255, 255, 0.08);
-          border: 2px solid rgba(255, 215, 0, 0.8);
+          backdrop-filter: blur(8px);
           box-shadow:
-            0 2px 16px rgba(255, 215, 0, 0.4),
-            0 0 24px rgba(255, 215, 0, 0.2);
-          animation: leader-glow 3s ease-in-out infinite;
+            0 2px 4px rgba(0, 0, 0, 0.2),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
 
-        @keyframes leader-glow {
+        .player-container:hover {
+          transform: translateX(4px);
+          border-color: rgba(255, 255, 255, 0.25);
+          background: rgba(255, 255, 255, 0.08);
+          box-shadow:
+            0 4px 8px rgba(0, 0, 0, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.15);
+        }
+
+        /* CONTENEDOR LÍDER */
+        .player-container.leader-container {
+          background: rgba(255, 255, 255, 0.07);
+          border: 2px solid rgba(255, 215, 0, 0.6);
+          box-shadow:
+            0 0 20px rgba(255, 215, 0, 0.3),
+            0 4px 8px rgba(0, 0, 0, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+          animation: leader-pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes leader-pulse {
           0%, 100% {
             box-shadow:
-              0 2px 16px rgba(255, 215, 0, 0.4),
-              0 0 24px rgba(255, 215, 0, 0.2);
+              0 0 20px rgba(255, 215, 0, 0.3),
+              0 4px 8px rgba(0, 0, 0, 0.3),
+              inset 0 1px 0 rgba(255, 255, 255, 0.2);
           }
           50% {
             box-shadow:
-              0 4px 24px rgba(255, 215, 0, 0.6),
-              0 0 36px rgba(255, 215, 0, 0.3);
+              0 0 30px rgba(255, 215, 0, 0.5),
+              0 6px 12px rgba(0, 0, 0, 0.4),
+              inset 0 1px 0 rgba(255, 255, 255, 0.25);
           }
         }
 
-        .player-card.leader-card::before {
-          background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.2), transparent);
+        .player-container.leader-container:hover {
+          border-color: rgba(255, 215, 0, 0.8);
+          transform: translateX(6px);
         }
 
-        .player-card.leader-card:hover {
-          transform: translateY(-3px);
-          border-color: rgba(255, 215, 0, 1);
-          background: rgba(255, 255, 255, 0.12);
-        }
-
-        .player-card.bot-card {
-          background: rgba(255, 255, 255, 0.05);
-          border: 2px solid rgba(139, 92, 246, 0.6);
+        /* CONTENEDOR BOT */
+        .player-container.bot-container {
+          background: rgba(255, 255, 255, 0.06);
+          border: 1.5px solid rgba(139, 92, 246, 0.5);
           box-shadow:
-            0 2px 12px rgba(139, 92, 246, 0.3),
-            0 0 20px rgba(139, 92, 246, 0.15);
+            0 0 15px rgba(139, 92, 246, 0.25),
+            0 2px 6px rgba(0, 0, 0, 0.25);
         }
 
-        .player-card.bot-card:hover {
+        .player-container.bot-container:hover {
+          border-color: rgba(139, 92, 246, 0.7);
           box-shadow:
-            0 4px 16px rgba(139, 92, 246, 0.4),
-            0 0 28px rgba(139, 92, 246, 0.2);
-          border-color: rgba(139, 92, 246, 0.8);
-          background: rgba(255, 255, 255, 0.08);
+            0 0 25px rgba(139, 92, 246, 0.35),
+            0 4px 10px rgba(0, 0, 0, 0.3);
         }
 
-        .player-card.empty {
-          opacity: 0.7;
-          border-style: dashed;
-          background: rgba(255, 255, 255, 0.03);
+        /* CONTENEDOR VACÍO */
+        .player-container.empty-container {
+          background: rgba(255, 255, 255, 0.02);
+          border: 1px dashed rgba(255, 255, 255, 0.2);
+          opacity: 0.6;
+          cursor: default;
+        }
+
+        .player-container.empty-container:hover {
+          transform: none;
+          background: rgba(255, 255, 255, 0.02);
           border-color: rgba(255, 255, 255, 0.2);
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         }
 
+        /* AVATARES REDISEÑADOS DESDE CERO */
         .player-avatar {
           flex-shrink: 0;
         }
@@ -983,122 +975,113 @@ export default function GameRoomMenu({ onBack, onStartGame }: GameRoomMenuProps)
         .avatar-human,
         .avatar-bot,
         .avatar-empty {
-          width: 52px;
-          height: 52px;
+          width: 48px;
+          height: 48px;
           border-radius: 50%;
           display: flex;
           align-items: center;
           justify-content: center;
           position: relative;
+          transition: all 0.3s ease;
         }
 
         .avatar-human {
-          background: linear-gradient(135deg, #3b82f6, #2563eb);
-          border: 3px solid rgba(59, 130, 246, 0.5);
+          background: linear-gradient(135deg, rgba(59, 130, 246, 0.8), rgba(37, 99, 235, 0.9));
+          border: 2px solid rgba(59, 130, 246, 0.6);
           box-shadow:
-            0 0 20px rgba(59, 130, 246, 0.6),
-            0 0 40px rgba(59, 130, 246, 0.3),
-            inset 0 2px 6px rgba(255, 255, 255, 0.3);
+            0 0 15px rgba(59, 130, 246, 0.4),
+            inset 0 1px 2px rgba(255, 255, 255, 0.3);
           color: white;
         }
 
         .avatar-human.avatar-leader {
-          background: linear-gradient(135deg, #FFD700, #FFA500);
-          border: 3px solid rgba(255, 215, 0, 0.8);
+          background: linear-gradient(135deg, rgba(255, 215, 0, 0.9), rgba(255, 165, 0, 0.8));
+          border: 2px solid rgba(255, 215, 0, 0.8);
           box-shadow:
-            0 0 24px rgba(255, 215, 0, 0.8),
-            0 0 48px rgba(255, 165, 0, 0.5),
-            inset 0 2px 8px rgba(255, 255, 255, 0.4);
-          animation: leader-avatar-glow 2s ease-in-out infinite;
+            0 0 20px rgba(255, 215, 0, 0.5),
+            inset 0 1px 2px rgba(255, 255, 255, 0.4);
+          animation: avatar-leader-glow 2.5s ease-in-out infinite;
         }
 
-        @keyframes leader-avatar-glow {
+        @keyframes avatar-leader-glow {
           0%, 100% {
             box-shadow:
-              0 0 24px rgba(255, 215, 0, 0.8),
-              0 0 48px rgba(255, 165, 0, 0.5),
-              inset 0 2px 8px rgba(255, 255, 255, 0.4);
+              0 0 20px rgba(255, 215, 0, 0.5),
+              inset 0 1px 2px rgba(255, 255, 255, 0.4);
           }
           50% {
             box-shadow:
-              0 0 32px rgba(255, 215, 0, 1),
-              0 0 64px rgba(255, 165, 0, 0.7),
-              inset 0 2px 10px rgba(255, 255, 255, 0.5);
+              0 0 30px rgba(255, 215, 0, 0.7),
+              inset 0 1px 2px rgba(255, 255, 255, 0.5);
           }
         }
 
         .avatar-bot {
-          background: linear-gradient(135deg, #8b5cf6, #7c3aed);
-          border: 3px solid rgba(139, 92, 246, 0.5);
+          background: linear-gradient(135deg, rgba(139, 92, 246, 0.8), rgba(124, 58, 237, 0.9));
+          border: 2px solid rgba(139, 92, 246, 0.6);
           box-shadow:
-            0 0 20px rgba(139, 92, 246, 0.6),
-            0 0 40px rgba(139, 92, 246, 0.3),
-            inset 0 2px 6px rgba(255, 255, 255, 0.3);
+            0 0 15px rgba(139, 92, 246, 0.4),
+            inset 0 1px 2px rgba(255, 255, 255, 0.3);
           color: white;
-          animation: pulse-bot 2s infinite;
+          animation: avatar-bot-pulse 2s ease-in-out infinite;
         }
 
-        @keyframes pulse-bot {
+        @keyframes avatar-bot-pulse {
           0%, 100% {
-            box-shadow:
-              0 0 20px rgba(139, 92, 246, 0.6),
-              0 0 40px rgba(139, 92, 246, 0.3),
-              inset 0 2px 6px rgba(255, 255, 255, 0.3);
+            transform: scale(1);
           }
           50% {
-            box-shadow:
-              0 0 30px rgba(139, 92, 246, 0.8),
-              0 0 60px rgba(139, 92, 246, 0.5),
-              inset 0 2px 6px rgba(255, 255, 255, 0.4);
+            transform: scale(1.05);
           }
         }
 
         .avatar-empty {
-          background: rgba(255, 255, 255, 0.05);
-          border: 3px dashed rgba(255, 255, 255, 0.2);
+          background: rgba(255, 255, 255, 0.03);
+          border: 2px dashed rgba(255, 255, 255, 0.2);
           color: rgba(255, 255, 255, 0.3);
         }
 
+        /* INFO DE JUGADOR REDISEÑADA */
         .player-info {
           display: flex;
           flex-direction: column;
-          gap: 0.5rem;
+          gap: 0.4rem;
           flex: 1;
         }
 
         .player-name-container {
           display: flex;
           align-items: center;
-          gap: 0.5rem;
+          gap: 0.4rem;
         }
 
         .crown-icon-inline {
-          color: #FFD700;
-          animation: crown-glow 2s infinite;
+          color: #FCD34D;
+          filter: drop-shadow(0 0 4px rgba(252, 211, 77, 0.6));
+          animation: crown-shine 2s ease-in-out infinite;
         }
 
-        @keyframes crown-glow {
+        @keyframes crown-shine {
           0%, 100% {
-            filter: drop-shadow(0 0 2px rgba(255, 215, 0, 0.5));
+            opacity: 1;
           }
           50% {
-            filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.8));
+            opacity: 0.7;
           }
         }
 
         .player-name {
           color: white;
-          font-weight: 700;
-          font-size: 1.05rem;
-          letter-spacing: 0.02em;
-          text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
-          line-height: 1.4;
+          font-weight: 600;
+          font-size: 0.95rem;
+          letter-spacing: 0.01em;
+          text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
         }
 
         .player-name.empty-name {
-          color: rgba(255, 255, 255, 0.4);
+          color: rgba(255, 255, 255, 0.35);
           font-style: italic;
-          font-weight: 500;
+          font-weight: 400;
         }
 
         .player-status {
@@ -1106,51 +1089,42 @@ export default function GameRoomMenu({ onBack, onStartGame }: GameRoomMenuProps)
           align-items: center;
         }
 
+        /* BADGES REDISEÑADOS DESDE CERO */
         .status-badge {
-          font-size: 0.75rem;
-          font-weight: 800;
-          padding: 0.35rem 0.85rem;
-          border-radius: 14px;
-          letter-spacing: 0.08em;
+          font-size: 0.65rem;
+          font-weight: 700;
+          padding: 0.25rem 0.65rem;
+          border-radius: 8px;
+          letter-spacing: 0.05em;
           text-transform: uppercase;
-          text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+          display: inline-block;
         }
 
         .leader-status {
-          background: linear-gradient(135deg, rgba(255, 215, 0, 0.3), rgba(255, 185, 0, 0.2));
-          color: #FFD700;
-          border: 1.5px solid rgba(255, 215, 0, 0.6);
-          box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+          background: rgba(252, 211, 77, 0.2);
+          color: #FCD34D;
+          border: 1px solid rgba(252, 211, 77, 0.4);
         }
 
         .bot-status {
-          background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(124, 58, 237, 0.2));
+          background: rgba(139, 92, 246, 0.2);
           color: #A78BFA;
-          border: 1.5px solid rgba(139, 92, 246, 0.6);
-          box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
+          border: 1px solid rgba(139, 92, 246, 0.4);
         }
 
         .player-status {
-          background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(37, 99, 235, 0.2));
+          background: rgba(59, 130, 246, 0.2);
           color: #60A5FA;
-          border: 1.5px solid rgba(59, 130, 246, 0.6);
-          box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+          border: 1px solid rgba(59, 130, 246, 0.4);
         }
 
         .empty-status {
           background: rgba(255, 255, 255, 0.05);
           color: rgba(255, 255, 255, 0.3);
-          border: 1px solid rgba(255, 255, 255, 0.1);
+          border: 1px solid rgba(255, 255, 255, 0.15);
         }
 
-        .crown-icon {
-          color: #FFD700;
-        }
-
-        .bot-icon {
-          color: #60A5FA;
-        }
-
+        /* BOTONES DE ACCIÓN REDISEÑADOS DESDE CERO */
         .player-actions {
           display: flex;
           gap: 0.5rem;
@@ -1159,52 +1133,98 @@ export default function GameRoomMenu({ onBack, onStartGame }: GameRoomMenuProps)
 
         .action-btn {
           padding: 0.5rem 0.75rem;
-          min-width: 40px;
-          height: 40px;
-          border-radius: 8px;
-          transition: all 0.3s ease;
+          min-width: 38px;
+          height: 38px;
+          border-radius: 10px;
+          transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
           display: flex;
           align-items: center;
           justify-content: center;
           font-weight: 700;
-          border: 2px solid transparent;
+          border: none;
           cursor: pointer;
+          position: relative;
+          overflow: hidden;
         }
 
+        /* BOTÓN EXPULSAR - ROJO */
         .kick-btn {
           color: white;
-          background: linear-gradient(135deg, #DC2626, #B91C1C);
-          border-color: rgba(220, 38, 38, 0.5);
+          background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
           box-shadow:
-            0 2px 8px rgba(220, 38, 38, 0.4),
-            0 0 16px rgba(220, 38, 38, 0.2);
+            0 2px 8px rgba(239, 68, 68, 0.4),
+            0 0 0 1px rgba(239, 68, 68, 0.3);
+        }
+
+        .kick-btn::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(135deg, #F87171 0%, #EF4444 100%);
+          opacity: 0;
+          transition: opacity 0.25s ease;
+        }
+
+        .kick-btn:hover::before {
+          opacity: 1;
         }
 
         .kick-btn:hover {
-          background: linear-gradient(135deg, #EF4444, #DC2626);
-          border-color: rgba(239, 68, 68, 0.8);
           box-shadow:
-            0 4px 12px rgba(220, 38, 38, 0.6),
-            0 0 24px rgba(220, 38, 38, 0.3);
+            0 4px 12px rgba(239, 68, 68, 0.6),
+            0 0 20px rgba(239, 68, 68, 0.3),
+            0 0 0 1px rgba(239, 68, 68, 0.5);
           transform: translateY(-2px) scale(1.05);
         }
 
+        .kick-btn:active {
+          transform: translateY(0) scale(0.98);
+        }
+
+        /* BOTÓN TRANSFERIR LIDERAZGO - AMARILLO */
         .transfer-btn {
-          color: #000;
-          background: linear-gradient(135deg, #FCD34D, #FBBF24);
-          border-color: rgba(252, 211, 77, 0.5);
+          color: #000000;
+          background: linear-gradient(135deg, #FCD34D 0%, #F59E0B 100%);
           box-shadow:
             0 2px 8px rgba(252, 211, 77, 0.4),
-            0 0 16px rgba(252, 211, 77, 0.2);
+            0 0 0 1px rgba(252, 211, 77, 0.3);
+        }
+
+        .transfer-btn::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(135deg, #FDE68A 0%, #FCD34D 100%);
+          opacity: 0;
+          transition: opacity 0.25s ease;
+        }
+
+        .transfer-btn:hover::before {
+          opacity: 1;
         }
 
         .transfer-btn:hover {
-          background: linear-gradient(135deg, #FDE68A, #FCD34D);
-          border-color: rgba(252, 211, 77, 0.8);
           box-shadow:
             0 4px 12px rgba(252, 211, 77, 0.6),
-            0 0 24px rgba(252, 211, 77, 0.3);
+            0 0 20px rgba(252, 211, 77, 0.3),
+            0 0 0 1px rgba(252, 211, 77, 0.5);
           transform: translateY(-2px) scale(1.05);
+        }
+
+        .transfer-btn:active {
+          transform: translateY(0) scale(0.98);
+        }
+
+        /* Asegurar que el contenido esté sobre el ::before */
+        .action-btn > * {
+          position: relative;
+          z-index: 1;
         }
 
         .remove-btn {
