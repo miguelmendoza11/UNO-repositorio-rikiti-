@@ -854,17 +854,11 @@ export default function GameRoomMenu({ onBack, onStartGame }: GameRoomMenuProps)
         }
 
         .lobby-column {
-          background: linear-gradient(
-            135deg,
-            rgba(30, 30, 50, 0.85),
-            rgba(20, 20, 40, 0.75)
-          );
+          background: rgba(255, 255, 255, 0.05);
           border-radius: 16px;
           padding: 2rem;
-          border: 2px solid rgba(255, 140, 0, 0.3);
-          box-shadow:
-            0 8px 32px rgba(0, 0, 0, 0.5),
-            0 0 20px rgba(255, 140, 0, 0.1);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
           backdrop-filter: blur(12px);
         }
 
