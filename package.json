@@ -60,6 +60,7 @@
     "recharts": "2.15.4",
     "sockjs-client": "^1.6.1",
     "sonner": "^1.7.4",
+    "styled-jsx": "^5.1.7",
     "tailwind-merge": "^3.3.1",
     "tailwindcss-animate": "^1.0.7",
     "three": "^0.181.0",
