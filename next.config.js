@@ -14,6 +14,11 @@ const nextConfig = {
   // Enable standalone output for Docker
   output: 'standalone',
 
+  // Enable styled-jsx
+  compiler: {
+    styledComponents: false,
+  },
+
   // Environment variables configuration
   env: {
     NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080',
