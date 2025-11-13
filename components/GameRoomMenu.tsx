@@ -877,6 +877,10 @@ export default function GameRoomMenu({ onBack, onStartGame }: GameRoomMenuProps)
           display: flex;
           flex-direction: column;
           gap: 1rem;
+          padding: 0.5rem;
+          background: rgba(0, 0, 0, 0.2);
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .player-card {
@@ -884,17 +888,14 @@ export default function GameRoomMenu({ onBack, onStartGame }: GameRoomMenuProps)
           align-items: center;
           gap: 1rem;
           padding: 1.25rem;
-          background: linear-gradient(135deg, rgba(59, 130, 246, 0.5), rgba(37, 99, 235, 0.4));
+          background: rgba(255, 255, 255, 0.05);
           border-radius: 14px;
-          border: 2px solid rgba(59, 130, 246, 0.8);
+          border: 1px solid rgba(255, 255, 255, 0.1);
           transition: all 0.3s ease;
           position: relative;
           overflow: hidden;
           backdrop-filter: blur(12px);
-          box-shadow:
-            0 4px 20px rgba(59, 130, 246, 0.4),
-            0 0 30px rgba(59, 130, 246, 0.2),
-            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         }
 
         .player-card::before {
@@ -904,14 +905,15 @@ export default function GameRoomMenu({ onBack, onStartGame }: GameRoomMenuProps)
           left: -100%;
           width: 100%;
           height: 100%;
-          background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.2), transparent);
+          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
           transition: left 0.5s ease;
         }
 
         .player-card:hover {
           transform: translateY(-2px);
-          box-shadow: 0 6px 20px rgba(59, 130, 246, 0.25);
-          border-color: rgba(59, 130, 246, 0.6);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+          border-color: rgba(255, 255, 255, 0.2);
+          background: rgba(255, 255, 255, 0.08);
         }
 
         .player-card:hover::before {
@@ -919,64 +921,59 @@ export default function GameRoomMenu({ onBack, onStartGame }: GameRoomMenuProps)
         }
 
         .player-card.leader-card {
-          background: linear-gradient(135deg, rgba(255, 215, 0, 0.6), rgba(255, 185, 0, 0.5), rgba(255, 140, 0, 0.4));
-          border: 2px solid rgba(255, 215, 0, 1);
+          background: rgba(255, 255, 255, 0.08);
+          border: 2px solid rgba(255, 215, 0, 0.8);
           box-shadow:
-            0 4px 28px rgba(255, 215, 0, 0.6),
-            0 8px 50px rgba(255, 140, 0, 0.5),
-            0 0 40px rgba(255, 215, 0, 0.4),
-            inset 0 1px 0 rgba(255, 255, 255, 0.4);
+            0 2px 16px rgba(255, 215, 0, 0.4),
+            0 0 24px rgba(255, 215, 0, 0.2);
           animation: leader-glow 3s ease-in-out infinite;
         }
 
         @keyframes leader-glow {
           0%, 100% {
             box-shadow:
-              0 4px 28px rgba(255, 215, 0, 0.6),
-              0 8px 50px rgba(255, 140, 0, 0.5),
-              0 0 40px rgba(255, 215, 0, 0.4),
-              inset 0 1px 0 rgba(255, 255, 255, 0.4);
+              0 2px 16px rgba(255, 215, 0, 0.4),
+              0 0 24px rgba(255, 215, 0, 0.2);
           }
           50% {
             box-shadow:
-              0 6px 36px rgba(255, 215, 0, 0.8),
-              0 12px 70px rgba(255, 140, 0, 0.7),
-              0 0 60px rgba(255, 215, 0, 0.6),
-              inset 0 1px 0 rgba(255, 255, 255, 0.5);
+              0 4px 24px rgba(255, 215, 0, 0.6),
+              0 0 36px rgba(255, 215, 0, 0.3);
           }
         }
 
         .player-card.leader-card::before {
-          background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.3), transparent);
+          background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.2), transparent);
         }
 
         .player-card.leader-card:hover {
           transform: translateY(-3px);
           border-color: rgba(255, 215, 0, 1);
+          background: rgba(255, 255, 255, 0.12);
         }
 
         .player-card.bot-card {
-          background: linear-gradient(135deg, rgba(139, 92, 246, 0.5), rgba(124, 58, 237, 0.4));
-          border: 2px solid rgba(139, 92, 246, 0.8);
+          background: rgba(255, 255, 255, 0.05);
+          border: 2px solid rgba(139, 92, 246, 0.6);
           box-shadow:
-            0 4px 20px rgba(139, 92, 246, 0.4),
-            0 0 30px rgba(139, 92, 246, 0.25),
-            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            0 2px 12px rgba(139, 92, 246, 0.3),
+            0 0 20px rgba(139, 92, 246, 0.15);
         }
 
         .player-card.bot-card:hover {
           box-shadow:
-            0 6px 24px rgba(139, 92, 246, 0.35),
-            0 0 40px rgba(139, 92, 246, 0.2);
+            0 4px 16px rgba(139, 92, 246, 0.4),
+            0 0 28px rgba(139, 92, 246, 0.2);
           border-color: rgba(139, 92, 246, 0.8);
+          background: rgba(255, 255, 255, 0.08);
         }
 
         .player-card.empty {
           opacity: 0.7;
           border-style: dashed;
-          background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.05));
-          border-color: rgba(255, 255, 255, 0.3);
-          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+          background: rgba(255, 255, 255, 0.03);
+          border-color: rgba(255, 255, 255, 0.2);
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         }
 
         .player-avatar {
@@ -1161,35 +1158,53 @@ export default function GameRoomMenu({ onBack, onStartGame }: GameRoomMenuProps)
         }
 
         .action-btn {
-          padding: 0.5rem;
-          min-width: 36px;
-          height: 36px;
-          border-radius: 6px;
-          transition: all 0.2s ease;
+          padding: 0.5rem 0.75rem;
+          min-width: 40px;
+          height: 40px;
+          border-radius: 8px;
+          transition: all 0.3s ease;
           display: flex;
           align-items: center;
           justify-content: center;
+          font-weight: 700;
+          border: 2px solid transparent;
+          cursor: pointer;
         }
 
         .kick-btn {
-          color: #EF4444;
-          font-weight: 700;
-          background: rgba(239, 68, 68, 0.1);
+          color: white;
+          background: linear-gradient(135deg, #DC2626, #B91C1C);
+          border-color: rgba(220, 38, 38, 0.5);
+          box-shadow:
+            0 2px 8px rgba(220, 38, 38, 0.4),
+            0 0 16px rgba(220, 38, 38, 0.2);
         }
 
         .kick-btn:hover {
-          background: rgba(239, 68, 68, 0.2);
-          transform: scale(1.1);
+          background: linear-gradient(135deg, #EF4444, #DC2626);
+          border-color: rgba(239, 68, 68, 0.8);
+          box-shadow:
+            0 4px 12px rgba(220, 38, 38, 0.6),
+            0 0 24px rgba(220, 38, 38, 0.3);
+          transform: translateY(-2px) scale(1.05);
         }
 
         .transfer-btn {
-          color: #FFD700;
-          background: rgba(255, 215, 0, 0.1);
+          color: #000;
+          background: linear-gradient(135deg, #FCD34D, #FBBF24);
+          border-color: rgba(252, 211, 77, 0.5);
+          box-shadow:
+            0 2px 8px rgba(252, 211, 77, 0.4),
+            0 0 16px rgba(252, 211, 77, 0.2);
         }
 
         .transfer-btn:hover {
-          background: rgba(255, 215, 0, 0.2);
-          transform: scale(1.1);
+          background: linear-gradient(135deg, #FDE68A, #FCD34D);
+          border-color: rgba(252, 211, 77, 0.8);
+          box-shadow:
+            0 4px 12px rgba(252, 211, 77, 0.6),
+            0 0 24px rgba(252, 211, 77, 0.3);
+          transform: translateY(-2px) scale(1.05);
         }
 
         .remove-btn {
