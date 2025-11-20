@@ -1,213 +1,264 @@
-# UNO - Juego de Cartas Online
+# 🎮 ONE Game - Monorepo Full Stack
 
-Un juego de cartas UNO desarrollado con Next.js 15, TypeScript y Tailwind CSS. Incluye animaciones de partículas, fondo de galaxia espiral, sistema de autenticación y gameplay interactivo con 3D perspective.
+Monorepo que combina el backend y frontend del juego de cartas ONE/UNO online.
 
-## 🎮 Características
+## 📁 Estructura del Proyecto
 
-### Autenticación
-- 📧 Login con Email/Username
-- ✍️ Registro de nuevas cuentas
-- 👤 Modo Invitado
-- 🔐 OAuth ready (Google, Facebook, Apple)
+```
+backpOneGame/
+├── backend/          # Spring Boot 3.5.7 + Java 21
+│   ├── src/
+│   ├── build.gradle
+│   └── README.md
+├── frontend/         # Next.js 15 + TypeScript
+│   ├── app/
+│   ├── components/
+│   ├── services/
+│   ├── package.json
+│   └── README.md
+├── docker-compose.yml    # Orquestación de servicios
+├── .env.example          # Variables de entorno
+└── README.md            # Este archivo
+```
 
-### Gameplay
-- 🎴 Sistema de cartas completo (108 cartas UNO)
-- 🎯 Soporte para 2-4 jugadores
-- 👥 Bots de IA
-- 🔄 Gestión de turnos
-- 📊 Sistema de puntuación
-- ⚙️ Configuración previa a la partida (Clásico, Torneo)
+## 🚀 Quick Start
 
-### Interfaz
-- **Diseño glassmorphism** con efectos visuales modernos
-- **Animaciones suaves**: Partículas flotantes y cartas animadas
-- **Fondo dinámico**: Espiral de galaxia con gradiente naranja-rojo
-- **Perspectiva 3D**: Tablero de juego elevado con rotateX(30deg)
-- **Responsive**: Optimizado para todas las pantallas
-
-### Configuración
-- 🔊 Audio (Volumen Master, Efectos, Música)
-- 🎨 Visual (Control de brillo)
-- 🎮 Jugabilidad (Auto-ordenar cartas, Apilar +2/+4)
-- 💬 Interfaz (Tamaño de texto)
-- 💾 Persistencia en localStorage
-
-## 🚀 Tecnologías
-
-- **Next.js 15.5.4** - Framework React
-- **TypeScript** - Tipado estático
-- **Tailwind CSS v4** - Styling
-- **Canvas API** - Animaciones de partículas
-- **Context API** - Gestión de estado global
-
-## 📦 Instalación
+### Opción 1: Desarrollo Local con Docker (Recomendado)
 
 ```bash
-# Clonar el repositorio
-git clone https://github.com/tu-usuario/uno-game.git
+# 1. Clonar y configurar
+git clone https://github.com/juangallardo19/backpOneGame.git
+cd backpOneGame
+cp .env.example .env
+# Editar .env con tus credenciales
 
-# Entrar al directorio
-cd uno-game
+# 2. Levantar todo con Docker
+docker-compose up -d
 
-# Instalar dependencias
+# Servicios disponibles:
+# - Frontend: http://localhost:3000
+# - Backend: http://localhost:8080
+# - PostgreSQL: localhost:5432
+```
+
+### Opción 2: Desarrollo Manual
+
+#### Backend (Puerto 8080)
+```bash
+cd backend
+
+# 1. Configurar PostgreSQL (ver backend/CONFIGURACION.md)
+# 2. Crear .env (copiar desde backend/.env.example)
+# 3. Ejecutar
+./gradlew bootRun
+```
+
+#### Frontend (Puerto 3000)
+```bash
+cd frontend
+
+# 1. Instalar dependencias
 npm install
 
-# Ejecutar en desarrollo
+# 2. Configurar variables de entorno
+cp .env.local.example .env.local
+
+# 3. Ejecutar
 npm run dev
-
-# Construir para producción
-npm run build
-
-# Ejecutar en producción
-npm start
 ```
 
-## 🎯 Uso
+## ⚙️ Configuración
 
-1. **Jugar**: Haz clic en "JUGAR" para iniciar una partida
-2. **Configurar**: Accede a las configuraciones desde el menú principal
-3. **Personalizar**: Ajusta audio, brillo, tamaño de texto y más
+### Variables de Entorno Principales
 
-## 🎨 Componentes Principales
+**Backend** (crear `backend/.env`):
+```env
+# Base de datos
+DATABASE_URL=jdbc:postgresql://localhost:5432/oneonline_db
+DATABASE_USER=oneonline_user
+DATABASE_PASSWORD=tu_password
 
-### Pantallas de Aplicación
-- `LoginScreen.tsx` - Autenticación (Login, Registro, Invitado)
-- `RoomSelectionScreen.tsx` - Selección entre crear o unirse a sala
-- `GameRoomMenu.tsx` - Configuración de partida (jugadores, preset, opciones)
-- `GamePlay.tsx` - **NUEVO** - Interfaz de juego con soporte para 4 jugadores
+# JWT
+JWT_SECRET=genera_uno_con_openssl_rand_-base64_64
 
-### Componentes Visuales
-- `GalaxySpiral.tsx` - Animación de espiral de galaxia
-- `ParticleCanvas.tsx` - Sistema de partículas flotantes
-- `UnoCardsBackground.tsx` - Cartas UNO animadas en fondo
-- `HalftoneWaves.tsx` - Efecto de ondas halftonadas
-- `SettingsModal.tsx` - Panel de configuración global
+# OAuth2 (opcional)
+GOOGLE_CLIENT_ID=tu_google_client_id
+GOOGLE_CLIENT_SECRET=tu_google_secret
+GITHUB_CLIENT_ID=tu_github_client_id
+GITHUB_CLIENT_SECRET=tu_github_secret
 
-### Utilidades
-- `AudioContext.tsx` - Sistema de audio global (Context API)
-- `ui/*` - Componentes shadcn/ui (Button, Input, Select, Dialog, etc)
-
-## 🌟 Efectos Visuales
-
-- **Fondo gradiente**: Naranja a rojo oscuro
-- **Espiral de galaxia**: 3 brazos con 2500 partículas
-- **Partículas naranjas**: 100 partículas flotantes
-- **Cartas flotantes**: Animación hacia el centro
-- **Efectos glass**: Contenedores con glassmorphism
-
-## 🔧 Configuraciones Disponibles
-
-| Categoría | Opciones |
-|-----------|----------|
-| **Audio** | Volumen Master, Efectos de Sonido, Música de Fondo, Sonidos de Cartas |
-| **Visual** | Control de Brillo (25-100%) |
-| **Jugabilidad** | Auto-ordenar cartas (Color/Número/Manual) |
-| **Interfaz** | Tamaño de texto (Pequeño/Mediano/Grande) |
-
-## 📱 Compatibilidad
-
-- ✅ Chrome/Edge/Firefox/Safari
-- ✅ Dispositivos móviles y tablets
-- ✅ Pantallas de alta resolución
-- ✅ Modo oscuro/claro
-
-## � Sistema de Juego (GamePlay)
-
-### Mecánicas Implementadas
-- ✅ Distribución de 108 cartas en mazo
-- ✅ Reparto de 7 cartas iniciales por jugador
-- ✅ Sistema de dibujar cartas del mazo
-- ✅ Jugar cartas al pila de descarte
-- ✅ Gestión de turnos automática (4 jugadores)
-- ✅ Interfaz 3D con perspectiva CSS
-
-### Estructura del Tablero
-
-```
-    ┌─────────────────┐
-    │  PLAYER TOP     │ (CPU)
-    │  (Face Down)    │
-├───┼─────────────────┼───┤
-│   │   DRAW PILE     │   │
-│ P │   DISCARD PILE  │ P │
-│ L │   [Current]     │ R │
-│ A │                 │ I │
-│ Y │                 │ G │
-│ E │                 │ H │
-│ R │                 │ T │
-│   │                 │   │
-├───┼─────────────────┼───┤
-    │ YOUR HAND (7)   │ (Interactive)
-    │ [Selectable]    │
-    └─────────────────┘
+# CORS
+FRONTEND_URL=http://localhost:3000
 ```
 
-### Colores de Cartas
-- 🔴 Red (`#dc251c`) - "r"
-- 🟡 Yellow (`#fcf604`) - "y"
-- 🔵 Blue (`#0493de`) - "b"
-- 🟢 Green (`#018d41`) - "g"
-- ⬛ Black (Wilds) - "w"
+**Frontend** (crear `frontend/.env.local`):
+```env
+# API Backend
+NEXT_PUBLIC_API_URL=http://localhost:8080
 
-### Tipos de Cartas (108 Total)
-- **Números (0-9)**: 40 cartas (4 colores × 10 valores)
-- **Robar 2 (+2)**: 8 cartas
-- **Saltar**: 8 cartas
-- **Invertir**: 8 cartas
-- **Comodín**: 4 cartas
-- **Comodín +4**: 4 cartas
-
-Para más detalles, ver [GAMEPLAY_COMPONENT.md](GAMEPLAY_COMPONENT.md)
-
-## �🎯 Flujo de Navegación
-
+# Si usas el backend de Railway (producción):
+# NEXT_PUBLIC_API_URL=https://oneonlinebackend-production.up.railway.app
 ```
-┌─────────────────┐
-│  Pantalla Inicio│
-│   (Main Menu)   │
-└────────┬────────┘
-         │
-    ┌────┴─────┐
-    │ ¿Logged? │
-    └─┬──────┬─┘
-      NO    SI
-      │      │
-      ▼      ▼
-   Login    Room
-  Screen  Selection
-    │      │
-    └──┬───┘
-       ▼
-   GameRoom
-    Menu
-    (Config)
-       │
-       ▼
-   GamePlay
-    (In-Game)
 
-## 🤝 Contribución
+## 🗄️ Base de Datos
 
-Las contribuciones son bienvenidas. Para cambios importantes:
+### PostgreSQL Local
+
+```bash
+# Instalar PostgreSQL
+# Ubuntu/Debian:
+sudo apt install postgresql
+
+# Crear base de datos
+sudo -u postgres psql
+CREATE DATABASE oneonline_db;
+CREATE USER oneonline_user WITH PASSWORD 'tu_password';
+GRANT ALL PRIVILEGES ON DATABASE oneonline_db TO oneonline_user;
+\q
+```
+
+### PostgreSQL en la Nube (Recomendado)
+
+Opciones gratuitas:
+- **Railway.app** - Clic aquí: https://railway.app/
+- **Supabase** - https://supabase.com/
+- **ElephantSQL** - https://www.elephantsql.com/
+
+## 🔌 API Endpoints
+
+### Autenticación
+- `POST /api/auth/register` - Registrar usuario
+- `POST /api/auth/login` - Iniciar sesión
+- `GET /api/auth/me` - Info del usuario actual
+
+### Salas de Juego
+- `GET /api/rooms/public` - Listar salas públicas
+- `POST /api/rooms` - Crear sala
+- `POST /api/rooms/{code}/join` - Unirse a sala
+
+### Juego
+- `POST /api/game/{sessionId}/start` - Iniciar partida
+- `POST /api/game/{sessionId}/play` - Jugar carta
+- `POST /api/game/{sessionId}/draw` - Robar carta
+- `WS /ws/game/{sessionId}` - WebSocket para eventos en tiempo real
+
+Ver documentación completa en `backend/README.md`
+
+## 🎯 Características
+
+### Backend
+- ✅ 11 patrones de diseño implementados
+- ✅ 5 estructuras de datos personalizadas
+- ✅ WebSockets para juego en tiempo real
+- ✅ Sistema de bots con IA
+- ✅ Ranking global TOP 100
+- ✅ OAuth2 (Google + GitHub)
+
+### Frontend
+- ✅ Interfaz moderna con glassmorphism
+- ✅ Animaciones 3D y partículas
+- ✅ Sistema de audio completo
+- ✅ Soporte 2-4 jugadores
+- ✅ Configuraciones personalizables
+
+## 📦 Tecnologías
+
+### Backend
+- Java 21
+- Spring Boot 3.5.7
+- PostgreSQL 15
+- Flyway
+- JWT + OAuth2
+- WebSockets
+
+### Frontend
+- Next.js 15
+- React 19
+- TypeScript
+- Tailwind CSS v4
+- Canvas API
+
+## 🐳 Docker
+
+```bash
+# Levantar todos los servicios
+docker-compose up -d
+
+# Ver logs
+docker-compose logs -f backend
+docker-compose logs -f frontend
+
+# Detener servicios
+docker-compose down
+
+# Reconstruir después de cambios
+docker-compose up -d --build
+```
+
+## 🧪 Testing
+
+```bash
+# Backend
+cd backend
+./gradlew test
+
+# Frontend
+cd frontend
+npm test
+npm run lint
+```
+
+## 🚀 Despliegue
+
+### Backend (Railway/Heroku)
+Ver instrucciones detalladas en `backend/CONFIGURACION.md`
+
+### Frontend (Vercel)
+```bash
+cd frontend
+vercel deploy
+```
+
+O conecta tu repo de GitHub a Vercel para deploy automático.
+
+## 🔗 Links de Producción
+
+- **Backend**: https://oneonlinebackend-production.up.railway.app
+- **Frontend**: (Configurar después del deploy)
+
+## 📚 Documentación Adicional
+
+- [Backend README](backend/README.md) - Documentación completa del backend
+- [Backend CONFIGURACION](backend/CONFIGURACION.md) - Guía de configuración detallada
+- [Frontend README](frontend/README.md) - Documentación del frontend
+
+## 🤝 Contribuir
 
 1. Fork el proyecto
-2. Crea una rama para tu feature (`git checkout -b feature/nueva-caracteristica`)
+2. Crea una rama (`git checkout -b feature/nueva-caracteristica`)
 3. Commit tus cambios (`git commit -m 'Agregar nueva característica'`)
-4. Push a la rama (`git push origin feature/nueva-caracteristica`)
+4. Push (`git push origin feature/nueva-caracteristica`)
 5. Abre un Pull Request
+
+## 👥 Autores
+
+**Backend**:
+- Juan Gallardo
+
+**Frontend**:
+- Sebastian Lopez
+- Miguel Mendoza
 
 ## 📄 Licencia
 
-Este proyecto está bajo la Licencia MIT - mira el archivo [LICENSE](LICENSE) para detalles.
+Proyecto académico - Curso de Ingeniería de Software
 
-## 👨‍💻 Autores
+## 🆘 Soporte
 
-**Sebastian Lopez** -
-**Miguel Mendoza** 
-- Email: miguelangel11230@gmail.com
-- Email: jlopezbenavides73@gmail.com
-- GitHub: [@tu-usuario](https://github.com/tu-usuario)
+- Backend issues: https://github.com/juangallardo19/OneOnlineBackend/issues
+- Frontend issues: https://github.com/seba4s/ONE-GAME/issues
+- Monorepo issues: Abrir issue en este repositorio
 
 ---
 
-⭐ ¡Dale una estrella a este proyecto si te gustó!
+⭐ **¡Dale una estrella si te gustó el proyecto!** ⭐
